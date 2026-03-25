@@ -21,7 +21,7 @@ public class YangStructureTest {
 
     @Test
     void testYangStructure() throws Exception {
-        List<String> schemaFile = List.of("../yang/ietf-yang-structure-ext.yang", "../yang/structure.yang");
+        List<String> schemaFile = List.of("../yang/minimal-structure/ietf-yang-structure-ext.yang", "../yang/minimal-structure/structure.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
     }
@@ -35,7 +35,7 @@ public class YangStructureTest {
 
     @Test
     void testYangStructureScottHuangValidMinimal() throws Exception {
-        List<String> schemaFile = List.of("../yang/scotthuang-structure.yang", "../yang/ietf-yang-types.yang", "../yang/ietf-yang-structure-ext.yang");
+        List<String> schemaFile = List.of("../yang/scotthuang-structure/scotthuang-structure.yang", "../yang/scotthuang-structure/ietf-yang-types.yang", "../yang/scotthuang-structure/ietf-yang-structure-ext.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
@@ -84,7 +84,7 @@ public class YangStructureTest {
 
     @Test
     void testYangStructureScottHuangValid() throws Exception {
-        List<String> schemaFile = List.of("../yang/scotthuang-structure.yang", "../yang/ietf-yang-types.yang", "../yang/ietf-yang-structure-ext.yang");
+        List<String> schemaFile = List.of("../yang/scotthuang-structure/scotthuang-structure.yang", "../yang/scotthuang-structure/ietf-yang-types.yang", "../yang/scotthuang-structure/ietf-yang-structure-ext.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
@@ -108,7 +108,7 @@ public class YangStructureTest {
 
     @Test
     void testYangStructureScottHuangInvalid() throws Exception {
-        List<String> schemaFile = List.of("../yang/scotthuang-structure.yang", "../yang/ietf-yang-types.yang", "../yang/ietf-yang-structure-ext.yang");
+        List<String> schemaFile = List.of("../yang/scotthuang-structure/scotthuang-structure.yang", "../yang/scotthuang-structure/ietf-yang-types.yang", "../yang/scotthuang-structure/ietf-yang-structure-ext.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
@@ -132,7 +132,7 @@ public class YangStructureTest {
 
     @Test
     void testYangStructureScottHuangInvalidMissingMandatory() throws Exception {
-        List<String> schemaFile = List.of("../yang/scotthuang-structure.yang", "../yang/ietf-yang-types.yang", "../yang/ietf-yang-structure-ext.yang");
+        List<String> schemaFile = List.of("../yang/scotthuang-structure/scotthuang-structure.yang", "../yang/scotthuang-structure/ietf-yang-types.yang", "../yang/scotthuang-structure/ietf-yang-structure-ext.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
