@@ -1,0 +1,9 @@
+module anydata-example {
+  yang-version 1.1;
+  namespace "urn:example:anydata-example";
+  prefix ae;
+
+  container super-container {
+    anydata child-container;
+  }
+}

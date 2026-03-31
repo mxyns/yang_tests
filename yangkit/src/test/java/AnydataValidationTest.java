@@ -47,4 +47,40 @@ public class AnydataValidationTest {
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
         assertTrue(secondDataValidation.isOk());
     }
+
+    @Test
+    void testPrimitiveAnydataInAnydata()throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/anydata-anydata");
+        JsonNode validData = YangkitUtils.loadJson("../data/primitive-anydata-anydata.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        assertTrue(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
+        assertTrue(secondDataValidation.isOk());
+    }
+
+    @Test
+    void testObjectWithSchemaAnydataInAnydata() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/anydata-anydata");
+        JsonNode validData = YangkitUtils.loadJson("../data/object-with-schema-anydata-anydata.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        assertTrue(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
+        assertTrue(secondDataValidation.isOk());
+    }
+
+    @Test
+    void testObjectWithoutSchemaAnydataInAnydata() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/anydata-anydata");
+        JsonNode validData = YangkitUtils.loadJson("../data/object-without-schema-anydata-anydata.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        assertFalse(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
+        assertTrue(secondDataValidation.isOk());
+    }
 }

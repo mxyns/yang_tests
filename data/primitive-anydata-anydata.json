@@ -1,0 +1,10 @@
+
+{
+  "anydata-example:super-container": {
+    "child-container": {
+      "anydata-child-example:super-child-container": {
+        "payload": 123
+      }
+    }
+  }
+}
