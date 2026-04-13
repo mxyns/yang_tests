@@ -48,7 +48,8 @@ public class XPathExtractionTest {
         xpath.addNamespace("st", "urn:schema:test");
 
         String value = xpath.stringValueOf(doc.getDataChild(YangkitUtils.getIdentifier("urn:xpath:test","anydata-container")));
-        assertEquals("router1", value);
+        // TODO: "value" returns "" instead of "router1"
+         assertEquals("router1", value);
     }
 
     @Test

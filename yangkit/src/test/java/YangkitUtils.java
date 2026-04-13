@@ -14,7 +14,6 @@ import org.yangcentral.yangkit.parser.YangYinParser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Objects;
 
 public final class YangkitUtils {
     public static YangSchemaContext loadSchema(String yangFiles) throws DocumentException, IOException, YangParserException {
