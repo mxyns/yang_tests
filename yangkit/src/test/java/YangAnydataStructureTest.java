@@ -47,5 +47,15 @@ public class YangAnydataStructureTest {
         assertTrue(secondDataValidation.isOk());
     }
 
-
+    @Test
+    void testStructureInAnydata() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/structure-in-anydata");
+        JsonNode validData = YangkitUtils.loadJson("../data/structure-in-anydata.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        assertTrue(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
+        assertTrue(secondDataValidation.isOk());
+    }
 }
