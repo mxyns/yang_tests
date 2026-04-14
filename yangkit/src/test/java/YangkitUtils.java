@@ -4,9 +4,12 @@ import org.dom4j.DocumentException;
 import org.yangcentral.yangkit.common.api.QName;
 import org.yangcentral.yangkit.common.api.validate.ValidatorResult;
 import org.yangcentral.yangkit.common.api.validate.ValidatorResultBuilder;
+import org.yangcentral.yangkit.data.api.model.LeafData;
 import org.yangcentral.yangkit.data.api.model.YangDataDocument;
 import org.yangcentral.yangkit.data.codec.json.YangDataDocumentJsonParser;
+import org.yangcentral.yangkit.data.impl.model.LeafDataImpl;
 import org.yangcentral.yangkit.data.impl.model.SingleInstanceDataIdentifier;
+import org.yangcentral.yangkit.model.api.codec.YangCodecException;
 import org.yangcentral.yangkit.model.api.schema.YangSchemaContext;
 import org.yangcentral.yangkit.parser.YangParserException;
 import org.yangcentral.yangkit.parser.YangYinParser;
@@ -49,13 +52,18 @@ public final class YangkitUtils {
         return yangDataDocument.validate();
     }
 
-    public static void getTree(Object node, String indent) {
+    public static void getTree(Object node, String indent) throws YangCodecException {
         if (!(node instanceof org.yangcentral.yangkit.data.api.model.YangData<?> data)) {
             System.out.println(indent + node);
             return;
         }
 
-        System.out.println(indent + data.getQName().getQualifiedName() + " -> " + data.getClass());
+        if(node instanceof LeafDataImpl<?>){
+            System.out.println(indent + data.getQName().getQualifiedName() + " -> {" + ((LeafDataImpl) node).getValue().getValue().toString() + "} (" + data.getClass() + ")");
+        }else{
+            System.out.println(indent + data.getQName().getQualifiedName() + " -> (" + data.getClass() + ")");
+        }
+
 
         if (data instanceof org.yangcentral.yangkit.data.api.model.YangDataContainer container) {
             for (var child : container.getDataChildren()) {

@@ -1,0 +1,14 @@
+module yang-transformation {
+    yang-version 1.1;
+    namespace "urn:yang:transformation";
+    prefix yt;
+
+    container foo {
+        leaf val {
+            type string;
+        }
+        leaf num {
+            type uint8;
+        }
+    }
+}

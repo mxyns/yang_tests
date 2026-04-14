@@ -1,0 +1,7 @@
+{
+  "data": {
+    "yang-transformation:foo": {
+      "val": "hello"
+    }
+  }
+}
