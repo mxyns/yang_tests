@@ -18,7 +18,7 @@ public class AnydataValidationTest {
 
     @Test
     void testPrimitiveTypeAnydata() throws Exception {
-        List<String> schemaFile = List.of("../yang/anydata/anydata-container-example.yang");
+        List<String> schemaFile = List.of("../yang/anydata/anydata-example.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
@@ -42,7 +42,7 @@ public class AnydataValidationTest {
 
     @Test
     void testObjectWithSchemaAnydata() throws Exception {
-        List<String> schemaFile = List.of("../yang/anydata/anydata-container-example.yang","../yang/example.yang");
+        List<String> schemaFile = List.of("../yang/anydata/anydata-example.yang","../yang/example.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
@@ -66,7 +66,7 @@ public class AnydataValidationTest {
 
     @Test
     void testObjectWithoutSchemaAnydata() throws Exception {
-        List<String> schemaFile = List.of("../yang/anydata/anydata-container-example.yang");
+        List<String> schemaFile = List.of("../yang/anydata/anydata-example.yang");
         EffectiveModelContext schema = YangToolsUtils.loadSchema(schemaFile);
         assertNotNull(schema);
 
