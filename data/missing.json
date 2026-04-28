@@ -1,0 +1,5 @@
+{
+  "mandatory-test:my-container": {
+    "foo": "830"
+  }
+}

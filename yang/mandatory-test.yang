@@ -1,0 +1,11 @@
+
+module mandatory-test {
+  yang-version 1.1;
+  namespace "urn:schema:mandatory-test";
+  prefix st;
+
+  container my-container {
+    leaf foo {type string;}
+    leaf test { type string; mandatory true; }
+  }
+}

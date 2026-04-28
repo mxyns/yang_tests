@@ -96,4 +96,16 @@ public class DataValidationJsonEncodingTest {
         }, "Port 70000 out of bounds should throw an exception during parsing");
     }
 
+    @Test
+    void testMissingMandatoryValidation() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/mandatory-test.yang");
+        JsonNode invalidData = YangkitUtils.loadJson("../data/missing.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, invalidData);
+        assertTrue(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, invalidData);
+        assertFalse(secondDataValidation.isOk());
+    }
+
 }
