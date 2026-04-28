@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public final class YangkitUtils {
     public static YangSchemaContext loadSchema(String yangFiles) throws DocumentException, IOException, YangParserException {
         var f = Paths.get(yangFiles).toAbsolutePath();
@@ -75,5 +77,16 @@ public final class YangkitUtils {
     public static SingleInstanceDataIdentifier getIdentifier(String namespace, String localName){
         QName qname = new QName(namespace,localName);
         return new SingleInstanceDataIdentifier(qname);
+    }
+
+    public static void debugDependencyTest() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/yangpush");
+        var validation = schemaContext.validate();
+        for(var r : validation.getRecords()){
+            if(r.getSeverity().toString().equals("ERROR")){
+                System.out.println(r.getBadElement() + " " + r.getErrorMsg().getMessage());
+            }
+        }
+        assertTrue(validation.isOk());
     }
 }
