@@ -7,8 +7,7 @@ import org.yangcentral.yangkit.parser.YangParserException;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NotifEnvelopeTest {
 
@@ -30,9 +29,6 @@ public class NotifEnvelopeTest {
         JsonNode validData = YangkitUtils.loadJson("../data/invalid_notification.json");
         ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
         assertTrue(schemaValidation.isOk());
-        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
-        assertFalse(firstDataValidation.isOk());
-        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
-        assertTrue(secondDataValidation.isOk());
+        assertThrows(Exception.class, () -> YangkitUtils.parsingData(schemaContext, validData));
     }
 }

@@ -23,7 +23,7 @@ module ietf-yang-types {
     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
     they appear in all capitals, as shown here.
 
-    Copyright (c) 2022 IETF Trust and the persons identified as
+    Copyright (c) 2025 IETF Trust and the persons identified as
     authors of the code.  All rights reserved.
 
     Redistribution and use in source and binary forms, with or
@@ -36,12 +36,12 @@ module ietf-yang-types {
     This version of this YANG module is part of RFC XXXX;
     see the RFC itself for full legal notices.";
 
-  revision 2023-01-23 {
+  revision 2025-06-23 {
     description
      "This revision adds the following new data types:
-      - yang:date-with-zone-offset
+      - yang:date
       - yang:date-no-zone
-      - yang:time-with-zone-offset
+      - yang:time
       - yang:time-no-zone
       - yang:hours32
       - yang:minutes32
@@ -53,9 +53,12 @@ module ietf-yang-types {
       - yang:nanoseconds32
       - yang:nanoseconds64
       - yang:language-tag
-      The yang-identifier definition has been aligned with YANG 1.1.
-      Several pattern statements have been improved.";
-    reference
+      The yang-identifier definition has been aligned with YANG
+      1.1 and types representing time support the representation
+      of leap seconds. The representation of time zone offsets
+      has been aligned with RFC 9557. Several description and
+      pattern statements have been improved.";
+    reference 
      "RFC XXXX: Common YANG Data Types";
   }
 
@@ -66,14 +69,14 @@ module ietf-yang-types {
       - yang:hex-string
       - yang:uuid
       - yang:dotted-quad";
-    reference
+    reference 
      "RFC 6991: Common YANG Data Types";
   }
 
   revision 2010-09-24 {
     description
      "Initial revision.";
-    reference
+    reference 
      "RFC 6021: Common YANG Data Types";
   }
 
@@ -92,10 +95,10 @@ module ietf-yang-types {
       content.  Discontinuities in the monotonically increasing
       value normally occur at re-initialization of the
       management system, and at other times as specified in the
-      description of a schema node using this type.  If such
+      description of a schema node using this type.  If such 
       other times can occur, for example, the instantiation of
       a schema node of type counter32 at times other than
-      re-initialization, then a corresponding schema node
+      re-initialization, then a corresponding schema node 
       should be defined, with an appropriate type, to indicate
       the last discontinuity.
 
@@ -111,20 +114,21 @@ module ietf-yang-types {
   }
 
   typedef zero-based-counter32 {
-    type yang:counter32;
+    type counter32;
     default "0";
     description
      "The zero-based-counter32 type represents a counter32
       that has the defined 'initial' value zero.
-      A schema node instance of this type will be set to zero (0)
+
+      A data tree node using this type will be set to zero (0) 
       on creation and will thereafter increase monotonically until
-      it reaches a maximum value of 2^32-1 (4294967295 decimal),
+      it reaches a maximum value of 2^32-1 (4294967295 decimal), 
       when it wraps around and starts increasing again from zero.
 
-      Provided that an application discovers a new schema node
-      instance of this type within the minimum time to wrap, it
-      can use the 'initial' value as a delta.  It is important for
-      a management station to be aware of this minimum time and the
+      Provided that an application discovers a new data tree node 
+      using this type within the minimum time to wrap, it can use
+      the 'initial' value as a delta.  It is important for a
+      management station to be aware of this minimum time and the
       actual time between polls, and to discard data if the actual
       time is too long or there is no defined minimum time.
 
@@ -167,42 +171,42 @@ module ietf-yang-types {
   }
 
   typedef zero-based-counter64 {
-    type yang:counter64;
+    type counter64;
     default "0";
     description
      "The zero-based-counter64 type represents a counter64 that
       has the defined 'initial' value zero.
 
-      A schema node instance of this type will be set to zero (0)
+      A data tree node using this type will be set to zero (0)
       on creation and will thereafter increase monotonically until
       it reaches a maximum value of 2^64-1 (18446744073709551615
       decimal), when it wraps around and starts increasing again
       from zero.
 
-      Provided that an application discovers a new schema node
-      instance of this type within the minimum time to wrap, it
-      can use the 'initial' value as a delta.  It is important for
-      a management station to be aware of this minimum time and the
+      Provided that an application discovers a new data tree node
+      using this type within the minimum time to wrap, it can use
+      the 'initial' value as a delta.  It is important for a
+      management station to be aware of this minimum time and the
       actual time between polls, and to discard data if the actual
       time is too long or there is no defined minimum time.
 
       In the value set and its semantics, this type is equivalent
       to the ZeroBasedCounter64 textual convention of the SMIv2.";
     reference
-     "RFC 2856: Textual Conventions for Additional High Capacity
+     "RFC 2856: Textual Conventions for Additional High Capacity 
                 Data Types";
   }
 
   typedef gauge32 {
     type uint32;
     description
-     "The gauge32 type represents a non-negative integer, which
+     "The gauge32 type represents a non-negative integer, which 
       may increase or decrease, but shall never exceed a maximum
       value, nor fall below a minimum value.  The maximum value
       cannot be greater than 2^32-1 (4294967295 decimal), and
       the minimum value cannot be smaller than 0.  The value of
       a gauge32 has its maximum value whenever the information
-      being modeled is greater than or equal to its maximum
+      being modeled is greater than or equal to its maximum 
       value, and has its minimum value whenever the information
       being modeled is smaller than or equal to its minimum value.
       If the information being modeled subsequently decreases
@@ -219,10 +223,10 @@ module ietf-yang-types {
   typedef gauge64 {
     type uint64;
     description
-     "The gauge64 type represents a non-negative integer, which
+     "The gauge64 type represents a non-negative integer, which 
       may increase or decrease, but shall never exceed a maximum
       value, nor fall below a minimum value.  The maximum value
-      cannot be greater than 2^64-1 (18446744073709551615), and
+      cannot be greater than 2^64-1 (18446744073709551615), and 
       the minimum value cannot be smaller than 0.  The value of
       a gauge64 has its maximum value whenever the information
       being modeled is greater than or equal to its maximum
@@ -233,10 +237,10 @@ module ietf-yang-types {
       gauge64 also decreases (increases).
 
       In the value set and its semantics, this type is equivalent
-      to the CounterBasedGauge64 SMIv2 textual convention defined
+      to the CounterBasedGauge64 SMIv2 textual convention defined 
       in RFC 2856";
     reference
-     "RFC 2856: Textual Conventions for Additional High Capacity
+     "RFC 2856: Textual Conventions for Additional High Capacity 
                 Data Types";
   }
 
@@ -259,9 +263,9 @@ module ietf-yang-types {
 
       The ASN.1 standard restricts the value space of the first
       sub-identifier to 0, 1, or 2.  Furthermore, the value space
-      of the second sub-identifier is restricted to the range
-      0 to 39 if the first sub-identifier is 0 or 1.  Finally,
-      the ASN.1 standard requires that an object identifier
+      of the second sub-identifier is restricted to the range 
+      0 to 39 if the first sub-identifier is 0 or 1.  Finally, 
+      the ASN.1 standard requires that an object identifier 
       has always at least two sub-identifiers.  The pattern
       captures these restrictions.
 
@@ -301,29 +305,32 @@ module ietf-yang-types {
 
   typedef date-and-time {
     type string {
-      pattern '[0-9]{4}-(1[0-2]|0[1-9])-(0[1-9]|[1-2][0-9]|3[0-1])'
-            + 'T(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?'
-            + '(Z|[\+\-]((1[0-3]|0[0-9]):([0-5][0-9])|14:00))?';
+      pattern
+          '[0-9]{4}-(1[0-2]|0[1-9])-(0[1-9]|[1-2][0-9]|3[0-1])'
+        + 'T(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?'
+        + '(Z|[\+\-]((1[0-3]|0[0-9]):([0-5][0-9])|14:00))?';
     }
     description
      "The date-and-time type is a profile of the ISO 8601
       standard for representation of dates and times using the
       Gregorian calendar.  The profile is defined by the
-      date-time production in Section 5.6 of RFC 3339.
+      date-time production in Section 5.6 of RFC 3339 and the
+      update defined in Section 2 of RFC 9557 . The value of
+      60 for seconds is allowed only in the case of leap seconds.
 
       The date-and-time type is compatible with the dateTime XML
       schema dateTime type with the following notable exceptions:
 
       (a) The date-and-time type does not allow negative years.
 
-      (b) The time-offset -00:00 indicates that the date-and-time
+      (b) The time-offset Z indicates that the date-and-time
           value is reported in UTC and that the local time zone
-          reference point is unknown. The time-offsets +00:00 and Z
-          both indicate that the date-and-time value is reported in
-          UTC and that the local time reference point is UTC (see RFC
-          3339 section 4.3).
+          reference point is unknown. The time-offsets +00:00
+          indicates that the date-and-time value is reported in
+          UTC and that the local time reference point is UTC
+          (see RFC 9557 section 2).
 
-      This type is not equivalent to the DateAndTime textual
+      This type is not equivalent to the DateAndTime textual 
       convention of the SMIv2 since RFC 3339 uses a different
       separator between full-date and full-time and provides
       higher resolution of time-secfrac.
@@ -335,34 +342,39 @@ module ietf-yang-types {
       to change accordingly.  Such changes might happen periodically
       in case a server follows automatically daylight saving time
       (DST) time zone offset changes.  The canonical format for
-      date-and-time values with an unknown time zone (usually
-      referring to the notion of local time) uses the time-offset
-      -00:00, i.e., date-and-time values must be reported in UTC.";
+      date-and-time values reported in UTC with an unknown local
+      time zone offset SHOULD use the time-offset Z and MAY use
+      -00:00 for backwards compatibility.";
     reference
      "RFC 3339: Date and Time on the Internet: Timestamps
+      RFC 9557: Date and Time on the Internet: Timestamps
+                with Additional Information
       RFC 2579: Textual Conventions for SMIv2
-      XSD-TYPES: XML Schema Definition Language (XSD) 1.1
+      XSD-TYPES: XML Schema Definition Language (XSD) 1.1 
                  Part 2: Datatypes";
   }
 
-  typedef date-with-zone-offset {
+  typedef date {
     type string {
-      pattern '[0-9]{4}-(1[0-2]|0[1-9])-(0[1-9]|[1-2][0-9]|3[0-1])'
-            + '(Z|[\+\-]((1[0-3]|0[0-9]):([0-5][0-9])|14:00))?';
+      pattern
+          '[0-9]{4}-(1[0-2]|0[1-9])-(0[1-9]|[1-2][0-9]|3[0-1])'
+        + '(Z|[\+\-]((1[0-3]|0[0-9]):([0-5][0-9])|14:00))?';
     }
     description
      "The date type represents a time-interval of the length
-      of a day, i.e., 24 hours.
+      of a day, i.e., 24 hours. It includes an optional time
+      zone offset.
 
-      The date type is compatible with the XML schema date
+      The date type is compatible with the XML schema date 
       type with the following notable exceptions:
+
       (a) The date type does not allow negative years.
 
-      (b) The time-offset -00:00 indicates that the date value is
-          reported in UTC and that the local time zone reference point
-          is unknown. The time-offsets +00:00 and Z both indicate that
-          the date value is reported in UTC and that the local time
-          reference point is UTC (see RFC 3339 section 4.3).
+      (b) The time-offset Z indicates that the date value is
+          reported in UTC and that the local time zone reference
+          point is unknown. The time-offset +00:00 indicates that
+          the date value is reported in UTC and that the local
+          time reference point is UTC (see RFC 9557 section 2).
 
       The canonical format for date values with a known time
       zone uses a numeric time zone offset that is calculated using
@@ -371,17 +383,18 @@ module ietf-yang-types {
       to change accordingly.  Such changes might happen periodically
       in case a server follows automatically daylight saving time
       (DST) time zone offset changes.  The canonical format for
-      date values with an unknown time zone (usually referring
-      to the notion of local time) uses the time-offset -00:00,
-      i.e., date values must be reported in UTC.";
+      date values reported in UTC with an unknown local time zone
+      offset uses the time-offset Z.";
     reference
      "RFC 3339: Date and Time on the Internet: Timestamps
-      XSD-TYPES: XML Schema Definition Language (XSD) 1.1
+      RFC 9557: Date and Time on the Internet: Timestamps
+                with Additional Information
+      XSD-TYPES: XML Schema Definition Language (XSD) 1.1 
                  Part 2: Datatypes";
   }
 
   typedef date-no-zone {
-    type date-with-zone-offset {
+    type date {
       pattern '[0-9]{4}-(1[0-2]|0[1-9])-(0[1-9]|[1-2][0-9]|3[0-1])';
     }
     description
@@ -389,23 +402,26 @@ module ietf-yang-types {
       time zone offset information.";
   }
 
-  typedef time-with-zone-offset {
+  typedef time {
     type string {
-      pattern '(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?'
-            + '(Z|[\+\-]((1[0-3]|0[0-9]):([0-5][0-9])|14:00))?';
+      pattern
+          '(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?'
+        + '(Z|[\+\-]((1[0-3]|0[0-9]):([0-5][0-9])|14:00))?';
     }
     description
      "The time type represents an instance of time of zero-duration
-      that recurs every day.
+      that recurs every day. It includes an optional time zone
+      offset. The value of 60 for seconds is allowed only in the
+      case of leap seconds.
 
       The time type is compatible with the XML schema time
       type with the following notable exception:
 
-      (a) The time-offset -00:00 indicates that the time value is
-          reported in UTC and that the local time zone reference point
-          is unknown. The time-offsets +00:00 and Z both indicate that
-          the time value is reported in UTC and that the local time
-          reference point is UTC (see RFC 3339 section 4.3).
+      (a) The time-offset Z indicates that the time value is
+          reported in UTC and that the local time zone reference
+          point is unknown. The time-offset +00:00 indicates that
+          the time value is reported in UTC and that the local
+          time reference point is UTC (see RFC 9557 section 2).
 
       The canonical format for time values with a known time
       zone uses a numeric time zone offset that is calculated using
@@ -414,18 +430,20 @@ module ietf-yang-types {
       to change accordingly.  Such changes might happen periodically
       in case a server follows automatically daylight saving time
       (DST) time zone offset changes.  The canonical format for
-      time values with an unknown time zone (usually referring
-      to the notion of local time) uses the time-offset -00:00,
-      i.e., time values must be reported in UTC.";
+      time values reported in UTC with an unknown local time zone
+      offset uses the time-offset Z.";
     reference
      "RFC 3339: Date and Time on the Internet: Timestamps
-      XSD-TYPES: XML Schema Definition Language (XSD) 1.1
+      RFC 9557: Date and Time on the Internet: Timestamps
+                with Additional Information
+      XSD-TYPES: XML Schema Definition Language (XSD) 1.1 
                  Part 2: Datatypes";
   }
 
   typedef time-no-zone {
-    type time-with-zone-offset {
-      pattern '(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?';
+    type time {
+      pattern
+          '(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?';
     }
     description
      "The time-no-zone type represents a time without the optional
@@ -436,7 +454,7 @@ module ietf-yang-types {
     type int32;
     units "hours";
     description
-     "A period of time, measured in units of hours.
+     "A period of time, measured in units of hours. 
 
       The maximum time period that can be expressed is in the
       range [-89478485 days 08:00:00 to 89478485 days 07:00:00].
@@ -575,10 +593,10 @@ module ietf-yang-types {
   }
 
   typedef timestamp {
-    type yang:timeticks;
+    type timeticks;
     description
      "The timestamp type represents the value of an associated
-      timeticks schema node instance at which a specific occurrence
+      timeticks schema node instance at which a specific occurrence 
       happened.  The specific occurrence must be defined in the
       description of any schema node defined using this type.  When
       the specific occurrence occurred prior to the last time the
@@ -612,7 +630,7 @@ module ietf-yang-types {
 
       In the value set and its semantics, this type is equivalent
       to the PhysAddress textual convention of the SMIv2.";
-    reference
+    reference 
      "RFC 2579: Textual Conventions for SMIv2";
   }
 
@@ -621,8 +639,12 @@ module ietf-yang-types {
       pattern '[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}';
     }
     description
-     "The mac-address type represents an IEEE 802 MAC address.
-      The canonical representation uses lowercase characters.
+     "The mac-address type represents a 48-bit IEEE 802 MAC
+      address. The canonical representation uses lowercase
+      characters. Note that there are IEEE 802 MAC addresses
+      with a different length that this type cannot represent.
+      The phys-address type may be used to represent physical
+      addresses of varying length.
 
       In the value set and its semantics, this type is equivalent
       to the MacAddress textual convention of the SMIv2.";
@@ -654,7 +676,7 @@ module ietf-yang-types {
     }
     description
      "A hexadecimal string with octets represented as hex digits
-      separated by colons.  The canonical representation uses
+      separated by colons.  The canonical representation uses 
       lowercase characters.";
   }
 
@@ -678,7 +700,7 @@ module ietf-yang-types {
 
   typedef dotted-quad {
     type string {
-      pattern
+      pattern 
         '(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}'
       + '([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])';
     }
@@ -720,11 +742,11 @@ module ietf-yang-types {
       "A YANG identifier string as defined by the 'identifier'
        rule in Section 14 of RFC 7950. An identifier must
        start with an alphabetic character or an underscore
-       followed by an arbitrary sequence of alphabetic or
+       followed by an arbitrary sequence of alphabetic or 
        numeric characters, underscores, hyphens, or dots.
 
        This definition conforms to YANG 1.1 defined in RFC
-       7950. An earlier version of this definition did exclude
+       7950. An earlier version of this definition excluded
        all identifiers starting with any possible combination
        of the lowercase or uppercase character sequence 'xml',
        as required by YANG 1 defined in RFC 6020. If this type
