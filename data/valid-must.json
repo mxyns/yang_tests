@@ -1,0 +1,8 @@
+{
+    "data": {
+        "must-test:account": {
+            "active": true,
+            "foo": "abc"
+        }
+    }
+}

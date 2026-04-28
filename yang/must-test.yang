@@ -1,0 +1,20 @@
+module must-test {
+  yang-version 1.1;
+  namespace "urn:example:must-test";
+  prefix mt;
+
+  container account {
+    must "not(active = 'true') or foo" {
+      error-message "active true or email";
+    }
+
+    leaf active {
+      type boolean;
+      mandatory true;
+    }
+
+    leaf foo {
+      type string;
+    }
+  }
+}

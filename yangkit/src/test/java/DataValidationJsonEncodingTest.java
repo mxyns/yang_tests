@@ -1,8 +1,12 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.xerces.util.ShadowedSymbolTable;
 import org.dom4j.DocumentException;
 import org.junit.jupiter.api.Test;
 import org.yangcentral.yangkit.common.api.validate.ValidatorResult;
+import org.yangcentral.yangkit.common.api.validate.ValidatorResultBuilder;
+import org.yangcentral.yangkit.data.api.model.YangDataDocument;
+import org.yangcentral.yangkit.data.codec.json.YangDataDocumentJsonParser;
 import org.yangcentral.yangkit.model.api.schema.YangSchemaContext;
 import org.yangcentral.yangkit.parser.YangParserException;
 
@@ -105,6 +109,44 @@ public class DataValidationJsonEncodingTest {
         ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, invalidData);
         assertTrue(firstDataValidation.isOk());
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, invalidData);
+        assertFalse(secondDataValidation.isOk());
+    }
+
+    @Test
+    void testValidMustValidation() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/must-test.yang");
+        JsonNode validData = YangkitUtils.loadJson("../data/valid-must.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        assertTrue(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
+        assertTrue(secondDataValidation.isOk());
+    }
+
+    @Test
+    void testValidMustValidation2() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/must-test.yang");
+        JsonNode validData = YangkitUtils.loadJson("../data/valid-must-2.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        assertTrue(firstDataValidation.isOk());
+        ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
+        assertTrue(secondDataValidation.isOk());
+    }
+
+    @Test
+    void testInvalidMustValidation() throws DocumentException, IOException, YangParserException {
+        YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/must-test.yang");
+        JsonNode invalidData = YangkitUtils.loadJson("../data/invalid-must.json");
+        ValidatorResult schemaValidation = YangkitUtils.validateSchema(schemaContext);
+        assertTrue(schemaValidation.isOk());
+        ValidatorResultBuilder firstDataValidationBuilder = new ValidatorResultBuilder();
+        YangDataDocument yangDataDocument = new YangDataDocumentJsonParser(schemaContext).parse(invalidData, firstDataValidationBuilder);
+        assertTrue(firstDataValidationBuilder.build().isOk());
+        yangDataDocument.update();
+        ValidatorResult secondDataValidation = yangDataDocument.validate();
         assertFalse(secondDataValidation.isOk());
     }
 
