@@ -11,7 +11,7 @@
                 "transport": "ietf-udp-notif-transport:udp-notif",
                 "ietf-yang-push-revision:module-version": [
                     {
-                        "module-name": "openconfig-interfaces",
+                        "name": "openconfig-interfaces",
                         "revision": "2022-10-25"
                     }
                 ],

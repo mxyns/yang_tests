@@ -15,9 +15,8 @@ public class YangPushTest {
     void test1ValidPushUpdate() throws DocumentException, IOException, YangParserException {
         YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/yangpush");
         JsonNode validData = YangkitUtils.loadJson("../data/1-push-update.json");
-        schemaContext.validate();
+        assertTrue(schemaContext.validate().isOk());
         ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
-        System.out.println(firstDataValidation.getRecords());
         assertTrue(firstDataValidation.isOk());
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
         assertTrue(secondDataValidation.isOk());
@@ -27,8 +26,9 @@ public class YangPushTest {
     void test1ValidSubscriptionStarted() throws DocumentException, IOException, YangParserException {
         YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/yangpush");
         JsonNode validData = YangkitUtils.loadJson("../data/1-subscription-started.json");
-        schemaContext.validate();
+        assertTrue(schemaContext.validate().isOk());
         ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        System.out.println(firstDataValidation.getRecords());
         assertTrue(firstDataValidation.isOk());
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
         assertTrue(secondDataValidation.isOk());
@@ -38,7 +38,7 @@ public class YangPushTest {
     void test2ValidPushUpdate() throws DocumentException, IOException, YangParserException {
         YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/yangpush");
         JsonNode validData = YangkitUtils.loadJson("../data/2-push-update.json");
-        schemaContext.validate();
+        assertTrue(schemaContext.validate().isOk());
         ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
         assertTrue(firstDataValidation.isOk());
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
@@ -49,7 +49,7 @@ public class YangPushTest {
     void test2ValidSubscriptionStarted() throws DocumentException, IOException, YangParserException {
         YangSchemaContext schemaContext = YangkitUtils.loadSchema("../yang/yangpush");
         JsonNode validData = YangkitUtils.loadJson("../data/2-subscription-started.json");
-        schemaContext.validate();
+        assertTrue(schemaContext.validate().isOk());
         ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
         assertTrue(firstDataValidation.isOk());
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
