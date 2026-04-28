@@ -17,6 +17,7 @@ public class YangPushTest {
         JsonNode validData = YangkitUtils.loadJson("../data/1-push-update.json");
         schemaContext.validate();
         ValidatorResult firstDataValidation = YangkitUtils.parsingData(schemaContext, validData);
+        System.out.println(firstDataValidation.getRecords());
         assertTrue(firstDataValidation.isOk());
         ValidatorResult secondDataValidation = YangkitUtils.validateData(schemaContext, validData);
         assertTrue(secondDataValidation.isOk());
